@@ -1,0 +1,8 @@
+"What do you do besides work and watching TV?"
+ "When I have some time, I like to exercise."
+ "Do you go jogging or do you go to a health club?"
+ "I joined Samsung Health Club a couple of months ago."
+ "How do you exercise?"
+ "I usually spend 30 minutes on the bicycle for the cardio, and then I lift weight for about 45 minutes."
+ "How often do you go?"
+ "I want to go four times a week, but I'm too lazy. Last week, I only went to workout once."

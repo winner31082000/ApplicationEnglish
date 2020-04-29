@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1083.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PlayVideo">
+   <children>
+      <MediaView fx:id="movie" fitHeight="100.0" fitWidth="100.0" layoutX="38.0" layoutY="286.0" />
+      <AnchorPane layoutX="159.0" layoutY="530.0" prefHeight="162.0" prefWidth="747.0" style="-fx-background-color: #29B6F6;">
+         <children>
+            <HBox layoutX="82.0" layoutY="41.0" prefHeight="39.0" prefWidth="589.0">
+               <children>
+                  <Button fx:id="TimeCurrent" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Button" textAlignment="CENTER" />
+                  <Slider fx:id="time" prefHeight="32.0" prefWidth="411.0" />
+                  <Button fx:id="TotalTime" mnemonicParsing="false" prefHeight="38.0" prefWidth="80.0" text="Button" />
+               </children>
+               <padding>
+                  <Insets left="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox layoutX="194.0" layoutY="80.0" prefHeight="46.0" prefWidth="341.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="56.0" text="Word" textFill="WHITESMOKE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets top="8.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="check" onKeyReleased="#checkAnswer" prefHeight="50.0" prefWidth="275.0" />
+               </children>
+            </HBox>
+            <HBox layoutX="277.0" layoutY="14.0" prefHeight="29.0" prefWidth="237.0" spacing="5.0">
+               <children>
+                  <Button fx:id="reset" mnemonicParsing="false" prefHeight="32.0" prefWidth="34.0">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@photo/replay.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="Play" mnemonicParsing="false" prefHeight="32.0" prefWidth="34.0">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@photo/play2.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="button" />
+                        <String fx:value="button" />
+                     </styleClass>
+                  </Button>
+                  <ImageView fitHeight="39.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@photo/volume1.jpg" />
+                     </image>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Slider fx:id="sliderVolume" prefHeight="14.0" prefWidth="92.0">
+                     <HBox.margin>
+                        <Insets top="13.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets top="-3.0" />
+                     </padding>
+                  </Slider>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="46.0" fitWidth="32.0" layoutX="38.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Image/left-arrow.png" />
+         </image>
+      </ImageView>
+      <Pane layoutX="-1.0" prefHeight="220.0" prefWidth="1083.0" style="-fx-background-color: #00BFFF;">
+         <children>
+            <Label layoutX="199.0" layoutY="48.0" text="KeepLearning" textFill="#faf7f7">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+            <Label layoutX="199.0" layoutY="129.0" text="Hust Student" textFill="#f2ecec">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="178.0" fitWidth="119.0" layoutX="47.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Image/bk.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Button layoutX="24.0" layoutY="230.0" mnemonicParsing="false" onAction="#undo" prefHeight="32.0" prefWidth="60.0">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Image/left-arrow.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <HBox layoutX="956.0" layoutY="236.0" prefHeight="46.0" prefWidth="119.0" spacing="10.0">
+         <children>
+            <Text fx:id="hourClock" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Text>
+            <Text fx:id="minuteClock" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Text>
+            <Text fx:id="secondClock" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Text>
+         </children>
+         <padding>
+            <Insets left="20.0" top="5.0" />
+         </padding>
+      </HBox>
+      <TextArea fx:id="guideAnswer" layoutX="296.0" layoutY="336.0" prefHeight="123.0" prefWidth="404.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextArea>
+   </children>
+</AnchorPane>

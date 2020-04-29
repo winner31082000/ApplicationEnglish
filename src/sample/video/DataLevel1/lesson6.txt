@@ -1,0 +1,7 @@
+ "Hey Bob. Whatcha you doing?"
+ "I'm at home painting."
+ "I didn't know you paint. What type of painting is it?"
+ "I enjoy oil painting. I learned it in one of my extra classes in college."
+ "That sounds so interesting. I wish I learned a hobby."
+ "Hobbies are never too late to learn. They offer a variety of classes at the local community college. You should look into it."
+ "I think I will. Thanks for the info."
