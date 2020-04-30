@@ -8,6 +8,23 @@ import java.io.IOException;
 public class Exercise {
     private String fileAudio;
     private String fileAnswer;
+    private int line=0;
+    private String[] guide=new String[2];
+    public int getLine() {
+        return line;
+    }
+
+    public String[] getGuide() {
+        return guide;
+    }
+
+    public void setGuide(String[] guide) {
+        this.guide = guide;
+    }
+
+    public void setLine(int line) {
+        this.line = line;
+    }
 
     public Exercise(String fileAnswer){
         this.fileAnswer=fileAnswer;
@@ -34,8 +51,16 @@ public class Exercise {
         String st;
         BufferedReader reader=new BufferedReader(new FileReader(fileAnswer));
         while ((st=reader.readLine())!=null){
-            temp+=st+" ";
+            if(line>1) {
+                line++;
+                temp += st + " ";
+            }
+            else{
+                guide[line] = st;
+                line++;
+            }
         }
+        temp = temp.replaceAll("[\\p{Punct}&&[^']]+", " ");
         return temp;
     }
 }

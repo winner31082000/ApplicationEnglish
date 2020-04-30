@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -73,7 +74,8 @@ public class PlayVideo implements Initializable {
     public static String fileAnswer;
     Exercise lesson=new Exercise(fileAnswer);
     private String data =lesson.getData();
-    private String arr[] = data.split(" ");
+    private String arrTemp[] = data.split(" ");
+    private String arr[]= Arrays.stream(arrTemp).filter(values->values!=null&&values.length()>0).toArray(size->new String[size]);
     private String[] guide=lesson.getGuide();
     private int line=lesson.getLine();
 
@@ -134,6 +136,10 @@ public class PlayVideo implements Initializable {
         else{
             guideAnswer.setText("A:"+guide[0]+"\n"+"B:"+guide[1]);
         }
+        for(String a:arr){
+            System.out.println(a);
+        }
+
        guideAnswer.setEditable(false);
         this.startTimeCLock();
         Play.setOnAction(new EventHandler<ActionEvent>() {
