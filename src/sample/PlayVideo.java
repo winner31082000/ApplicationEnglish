@@ -74,11 +74,15 @@ public class PlayVideo implements Initializable {
     public static String fileAnswer;
     Exercise lesson=new Exercise(fileAnswer);
     private String data =lesson.getData();
-    private String arrTemp[] = data.split(" ");
+    private String data1[]=data.split(" ");
+    private String data2[]=Arrays.stream(data1).filter(values->values!=null&&values.length()>0).toArray(size->new String[size]);
+    private String arrTemp[] = data.replaceAll("[\\p{Punct}&&[^']]+", " ").split(" ");
     private String arr[]= Arrays.stream(arrTemp).filter(values->values!=null&&values.length()>0).toArray(size->new String[size]);
     private String[] guide=lesson.getGuide();
     private int line=lesson.getLine();
+    private int sizeForOneLine[]=lesson.getSizeForOneLine();
 
+    private int temp=0;
     private static int i = 0;
     String video=new File(path).getAbsolutePath();
     Media media=new Media(new File(video).toURI().toString());
@@ -106,8 +110,11 @@ public class PlayVideo implements Initializable {
         }
     };
 
+
     public PlayVideo() throws IOException {
     }
+
+
 
     public void startTimeCLock(){
         myTimer.scheduleAtFixedRate(timeRun,1000,1000);
@@ -134,11 +141,9 @@ public class PlayVideo implements Initializable {
             guideAnswer.setText("A:"+guide[0]);
         }
         else{
-            guideAnswer.setText("A:"+guide[0]+"\n"+"B:"+guide[1]);
+            guideAnswer.setText("A:"+guide[0]+"\n"+"B:"+guide[1]+"\nA:");
         }
-        for(String a:arr){
-            System.out.println(a);
-        }
+
 
        guideAnswer.setEditable(false);
         this.startTimeCLock();
@@ -263,9 +268,18 @@ public class PlayVideo implements Initializable {
                 check.deletePreviousChar();
             }
             if(check.getText().length() == arr[i].length()) {
-                guideAnswer.setText(guideAnswer.getText()+" "+check.getText());
+                guideAnswer.setText(guideAnswer.getText()+" "+data2[i]);
                 check.clear();
                 i++;
+                System.out.println(arr[i]);
+                if(i==sizeForOneLine[temp]&&temp%2!=0){
+                    guideAnswer.setText(guideAnswer.getText()+"\nA: ");
+                    temp++;
+                }
+                else if(i==sizeForOneLine[temp]&&temp%2==0){
+                    guideAnswer.setText(guideAnswer.getText()+"\nB: ");
+                    temp++;
+                }
             }
         } catch(Exception e){}
 
