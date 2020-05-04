@@ -331,6 +331,5 @@ public class PlayVideo implements Initializable {
             window.setScene(scene);
             window.show();
         }
-
     }
 }
