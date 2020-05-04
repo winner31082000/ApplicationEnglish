@@ -13,7 +13,7 @@ public class Exercise {
     private String fileAnswer;
     private int line=0;
     private String[] guide=new String[2];
-    private int sizeForOneLine[]=new int[10];
+    private int sizeForOneLine[]=new int[25];
 
     public int[] getSizeForOneLine() {
         int []temp=Arrays.stream(sizeForOneLine).filter(num->num!=0).toArray();

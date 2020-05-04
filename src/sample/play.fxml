@@ -143,7 +143,7 @@
             <Insets left="20.0" top="5.0" />
          </padding>
       </HBox>
-      <TextArea fx:id="guideAnswer" layoutX="290.0" layoutY="274.0" prefHeight="185.0" prefWidth="516.0">
+      <TextArea fx:id="guideAnswer" layoutX="214.0" layoutY="230.0" prefHeight="270.0" prefWidth="652.0">
          <font>
             <Font size="20.0" />
          </font>

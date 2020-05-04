@@ -138,10 +138,10 @@ public class PlayVideo implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(line<=6){
-            guideAnswer.setText("A:"+guide[0]);
+            guideAnswer.setText("A: "+guide[0]);
         }
         else{
-            guideAnswer.setText("A:"+guide[0]+"\n"+"B:"+guide[1]+"\nA:");
+            guideAnswer.setText("A: "+guide[0]+"\n"+"B: "+guide[1]+"\nA: ");
         }
 
 
