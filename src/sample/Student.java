@@ -132,12 +132,12 @@ public class Student {
         this.now = now;
     }
 
-    public void addHistory(int diem){
+    public void addHistory(double diem){
         histories[now] = new History(now+1, diem);
         now++;
     }
 
-    public void editHistory(int vong, int diem){
+    public void editHistory(int vong, double diem){
 
         histories[vong-1].setDiem(diem);
     }

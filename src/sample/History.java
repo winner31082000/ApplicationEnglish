@@ -1,16 +1,16 @@
 package sample;
 public class History{
-    private int diem;
+    private double diem;
     private int vong;
     public History(){
 
     }
 
-    public int getDiem() {
+    public double getDiem() {
         return diem;
     }
 
-    public void setDiem(int diem) {
+    public void setDiem(double diem) {
         this.diem = diem;
     }
 
@@ -22,7 +22,7 @@ public class History{
         this.vong = vong;
     }
 
-    public History(int vong, int diem){
+    public History(int vong, double diem){
         this.diem = diem;
         this.vong = vong;
     }
