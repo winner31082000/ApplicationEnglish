@@ -48,10 +48,6 @@ public class HistoryController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Student test = Main.students[Main.dem];
         name.setText(test.getFullName());
-        test.addHistory(10);
-        test.addHistory(100);
-        test.addHistory(90);
-        test.addHistory(98);
         XYChart.Series<String, Number> series = getSeries(test);
         lineChart.getData().add(series);
 
