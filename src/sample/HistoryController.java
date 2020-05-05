@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
@@ -47,6 +48,11 @@ public class HistoryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Student test = Main.students[Main.dem];
+        try {
+            test.setPoint();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         name.setText(test.getFullName());
         XYChart.Series<String, Number> series = getSeries(test);
         lineChart.getData().add(series);

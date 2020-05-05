@@ -66,16 +66,19 @@ public class ControllerChallenge implements Initializable {
     public void setTextChallenge1(ActionEvent event) throws IOException {
         this.textChallenge.setText("Level 1");
         temp("src\\sample\\video\\Path\\lv1.txt");
+        Main.students[Main.dem].setLevel("1");
         setAction("Level 1","DataLevel1");
     }
     public void setTextChallenge2(ActionEvent event) throws IOException {
         this.textChallenge.setText("Level 2");
         temp("src\\sample\\video\\Path\\lv2.txt");
+        Main.students[Main.dem].setLevel("2");
         setAction("Level 2","DataLevel2");
     }
     public void setTextChallenge3(ActionEvent event) throws IOException {
         this.textChallenge.setText("Level 3");
         temp("src\\sample\\video\\Path\\lv3.txt");
+        Main.students[Main.dem].setLevel("3");
         setAction("Level 3","DataLevel3");
     }
     @Override

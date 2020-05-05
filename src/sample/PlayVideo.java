@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -87,7 +88,7 @@ public class PlayVideo implements Initializable {
     String video=new File(path).getAbsolutePath();
     Media media=new Media(new File(video).toURI().toString());
     MediaPlayer mediaPlayer=new MediaPlayer(media);
-    private double result=0;
+    private float result=0;
     int second =0;
     int minutes=0;
     int hour=0;
@@ -261,7 +262,7 @@ public class PlayVideo implements Initializable {
     }
 
     // check answer
-    public void checkAnswer() throws IOException {
+    public void checkAnswer() throws IOException, SQLException {
 
         try {
             if (check.getText().charAt(check.getText().length() - 1) != arr[i].charAt(check.getText().length() - 1)) {
@@ -289,10 +290,10 @@ public class PlayVideo implements Initializable {
             int time = Integer.parseInt(hourClock.getText().substring(0, hourClock.getText().length()-1))*3600 +
                     Integer.parseInt(minuteClock.getText().substring(0, minuteClock.getText().length()-1))*60 + Integer.parseInt(secondClock.getText());
             double videoduration = mediaPlayer.getTotalDuration().toSeconds();
-            result = 10*(11-time/videoduration)/11;
+            result = (float) (10*(11-time/videoduration)/11);
             result = Math.round(result*10);
             result = result/10;
-            Main.students[Main.dem].addHistory(result);
+            Main.students[Main.dem].insertHistory(result);
             showResult();
             System.out.println(result);
             i = 0;

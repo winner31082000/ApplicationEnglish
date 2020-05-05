@@ -22,6 +22,25 @@ public class Student {
     private String edu;
     private History[] histories = new History[100];
     private int now = 0;
+    private double[] data = new double[100];
+    private int sum = 0;
+    private String level;
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
 
     public Student(){
         histories = new History[100];
@@ -165,6 +184,13 @@ public class Student {
                 +getEmail()+ "')");
         System.out.println("Update sign up successful");
     }
+    public void insertHistory(float point) throws SQLException {
+        var conn = MConnection.getInstance().getConnection();
+        Statement stm = conn.createStatement();
+        stm.executeUpdate("insert into History(CustomerID,Level,Point) values ('"+getID()+"','"+getLevel()+"','"+point
+                + "')");
+        System.out.println("Update point to History successful");
+    }
     public void insertTotalData() throws SQLException {
         var conn = MConnection.getInstance().getConnection();
         Statement stm = conn.createStatement();
@@ -198,6 +224,22 @@ public class Student {
         }
         else{
             return false;
+        }
+    }
+    public void setPoint() throws SQLException {
+        var conn = MConnection.getInstance().getConnection();
+        var sql = "SELECT Point FROM dbo.History as H,dbo.Customer as C where C.ID = H.CustomerID and C.ID=" +
+                "'"+getID() +"'";
+        var result = conn.prepareStatement(sql);
+        var resultSet = result.executeQuery();
+        double a = 0;
+        while (resultSet.next()) {
+            a = (double) (Math.floor(resultSet.getFloat("Point")*10)/10);
+            /*histories[now] = new History();
+            histories[now].setDiem(a);
+            histories[now].setVong(now+1);*/
+            addHistory(a);
+            /*now++;*/
         }
     }
 

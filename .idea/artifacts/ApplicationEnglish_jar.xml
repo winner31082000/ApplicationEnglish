@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ApplicationEnglish:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ApplicationEnglish_jar</output-path>
+    <root id="archive" name="ApplicationEnglish.jar">
+      <element id="module-output" name="ApplicationEnglish" />
+      <element id="extracted-dir" path="D:/JDBC/sqljdbc_8.2/enu/mssql-jdbc-8.2.2.jre13.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Java/JavFx/javafx-sdk-14.0.1/lib/src.zip" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Java/JavFx/javafx-sdk-14.0.1/lib/javafx-swt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Java/JavFx/javafx-sdk-14.0.1/lib/javafx.web.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Java/JavFx/javafx-sdk-14.0.1/lib/javafx.base.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Java/JavFx/javafx-sdk-14.0.1/lib/javafx.fxml.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Java/JavFx/javafx-sdk-14.0.1/lib/javafx.media.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Java/JavFx/javafx-sdk-14.0.1/lib/javafx.swing.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Java/JavFx/javafx-sdk-14.0.1/lib/javafx.controls.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Java/JavFx/javafx-sdk-14.0.1/lib/javafx.graphics.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
