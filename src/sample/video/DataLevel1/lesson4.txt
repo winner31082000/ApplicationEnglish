@@ -1,8 +1,0 @@
- "Hey, you wanna see a movie tomorrow?" "Sounds like a good plan. What do you want to see?"
- "How about Legally Blonde."
- "Ah, my girlfriend wanted to see that movie. I have to take her later so I don't want to watch it ahead of time. How about The Cube?"
- "Isn't that a scary movie?"
- "How scary can it be? Come on, it'll be fun."
-"Ok. I'll give it a try."
-"That's the spirit. I'll see you tomorrow after class."
- "Ok. See you tomorrow."

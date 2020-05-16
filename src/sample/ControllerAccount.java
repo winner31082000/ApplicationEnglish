@@ -12,11 +12,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -71,7 +68,8 @@ public class ControllerAccount implements Initializable {
         a.setAge(Integer.valueOf(age.getText()));
         a.setEmail(email.getText());
         a.setEdu(edu.getText());
-        a.insertTotalData();
+        ActionDataBase action = new ActionDataBase();
+        action.insertTotalData(a);
         Alert hi = new Alert(Alert.AlertType.INFORMATION);
         hi.setTitle("Update data");
         hi.setHeaderText(null);

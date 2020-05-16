@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
@@ -44,21 +45,27 @@ public class HistoryController implements Initializable {
     @FXML
     private TableColumn<History, Integer> scoreColumn;
 
+    private Student test = Main.students[Main.dem];
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Student test = Main.students[Main.dem];
-        name.setText(test.getFullName());
-        test.addHistory(10);
-        test.addHistory(100);
-        test.addHistory(90);
-        test.addHistory(98);
-        XYChart.Series<String, Number> series = getSeries(test);
+        name.setText(Main.students[Main.dem].getFullName());
+        /*try {
+            test.setPoint();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }*/
+    }
+
+    public void setLevel1(){
+        XYChart.Series<String, Number> series = getSeries(test, 1);
+        lineChart.getData().clear();
         lineChart.getData().add(series);
 
 
         ObservableList<History> data = FXCollections.observableArrayList();
-        for (int i = 0; i<test.getNow(); i++){
-            data.add(test.getHistories()[i]);
+        for (int i = 0; i<test.getNow()[0]; i++){
+            data.add(test.getHistories()[0][i]);
         }
 
         roundColumn.setCellValueFactory(new PropertyValueFactory<History, Integer>("vong"));
@@ -66,14 +73,44 @@ public class HistoryController implements Initializable {
         table.setItems(data);
     }
 
-    public XYChart.Series<String, Number> getSeries(Student test){
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        for(int i = 0; i<test.getNow(); i++){
-            series.getData().add(new XYChart.Data<>("Vong "+test.getHistories()[i].getVong(), test.getHistories()[i].getDiem()));
+    public void setLevel2(){
+        XYChart.Series<String, Number> series = getSeries(test, 2);
+        lineChart.getData().clear();
+        lineChart.getData().add(series);
+
+
+        ObservableList<History> data = FXCollections.observableArrayList();
+        for (int i = 0; i<test.getNow()[1]; i++){
+            data.add(test.getHistories()[1][i]);
         }
-        /*for(int i = 0; i<a.getNow(); i++){
-            series.getData().add(new XYChart.Data<>("Vong " + (i+1), a.getdiemthi(i)));
-        }*/
+
+        roundColumn.setCellValueFactory(new PropertyValueFactory<History, Integer>("vong"));
+        scoreColumn.setCellValueFactory(new PropertyValueFactory<History, Integer>("diem"));
+        table.setItems(data);
+    }
+
+    public void setLevel3(){
+        XYChart.Series<String, Number> series = getSeries(test, 3);
+        lineChart.getData().clear();
+        lineChart.getData().add(series);
+
+
+        ObservableList<History> data = FXCollections.observableArrayList();
+        for (int i = 0; i<test.getNow()[2]; i++){
+            data.add(test.getHistories()[2][i]);
+        }
+
+        roundColumn.setCellValueFactory(new PropertyValueFactory<History, Integer>("vong"));
+        scoreColumn.setCellValueFactory(new PropertyValueFactory<History, Integer>("diem"));
+        table.setItems(data);
+    }
+
+
+    public XYChart.Series<String, Number> getSeries(Student test, int level){
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        for(int i = 0; i<test.getNow()[level-1]; i++){
+            series.getData().add(new XYChart.Data<>("Vong "+test.getHistories()[level-1][i].getVong(), test.getHistories()[level-1][i].getDiem()));
+        }
         series.setName("Diem tung vong");
         return series;
     }

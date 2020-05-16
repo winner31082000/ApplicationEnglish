@@ -109,5 +109,8 @@
             </ImageView>
          </graphic>
       </Button>
+      <Button layoutX="671.0" layoutY="333.0" mnemonicParsing="false" onAction="#setLevel1" text="Level 1" />
+      <Button layoutX="757.0" layoutY="333.0" mnemonicParsing="false" onAction="#setLevel2" text="Level 2" />
+      <Button layoutX="840.0" layoutY="333.0" mnemonicParsing="false" onAction="#setLevel3" text="Level 3" />
     </children>
 </AnchorPane>

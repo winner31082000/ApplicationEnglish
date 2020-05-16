@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
@@ -25,13 +26,19 @@ import java.util.Scanner;
 public class ControllerChallenge implements Initializable {
     @FXML
     private Button bt1,bt2,bt3;
+
     @FXML
-    private Text textChallenge,name;
+    private Text name;
+
+    @FXML
+    private Text textChallenge;
+
     @FXML
     private GridPane gridPane;
     @FXML
     private Button setButton;
-
+    static int lesson=0;
+    static int level;
     public final static int MAX = 10;
 
     private Hyperlink[] hl = new Hyperlink[MAX];
@@ -66,16 +73,19 @@ public class ControllerChallenge implements Initializable {
     public void setTextChallenge1(ActionEvent event) throws IOException {
         this.textChallenge.setText("Level 1");
         temp("src\\sample\\video\\Path\\lv1.txt");
+        Main.students[Main.dem].setLevel("1");
         setAction("Level 1","DataLevel1");
     }
     public void setTextChallenge2(ActionEvent event) throws IOException {
         this.textChallenge.setText("Level 2");
         temp("src\\sample\\video\\Path\\lv2.txt");
+        Main.students[Main.dem].setLevel("2");
         setAction("Level 2","DataLevel2");
     }
     public void setTextChallenge3(ActionEvent event) throws IOException {
         this.textChallenge.setText("Level 3");
         temp("src\\sample\\video\\Path\\lv3.txt");
+        Main.students[Main.dem].setLevel("3");
         setAction("Level 3","DataLevel3");
     }
     @Override
@@ -86,8 +96,11 @@ public class ControllerChallenge implements Initializable {
 
     public void setAction(String a,String b){
         for(int i=0;i<MAX;i++){
+            int finalI = i;
             hl[i].setOnAction(event -> {
                 try {
+                    Main.students[Main.dem].setBaiso(finalI +1);
+                    System.out.println(Main.students[Main.dem].getBaiso());
                     openAudio(event,a,b);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -121,15 +134,48 @@ public class ControllerChallenge implements Initializable {
         for (int i =0;i<MAX;i++){
             if(hyperlink.equals(hl[i])){
                 PlayVideo.path += hl[i].getText();
+                lesson=i+1;
                 PlayVideo.fileAnswer+=hl[i].getText().substring(0,hl[i].getText().length()-3)+"txt";
                 break;
             }
         }
     }
 
+    public boolean checkLession(int level){
+        int temp[]=Main.students[Main.dem].getNow();
+        System.out.println(temp[level-1]);
+        if(lesson>temp[level-1]){
+            return false;
+        }
+        return true;
+    }
     public void openAudio(ActionEvent event,String a,String b) throws IOException {
         getPath(event,a,b);
-        setSceneAudio(event);
+        String temp=textChallenge.getText();
+        if(temp.toLowerCase().equals("level 1")){
+            level=1;
+        }
+        else if(temp.toLowerCase().equals("level 2")){
+            level=2;
+        }
+        else{
+            level=3;
+        }
+
+        System.out.println(lesson);
+        if(checkLession(level)){
+            setSceneAudio(event);
+        }
+        else{
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Warring");
+
+            alert.setHeaderText("Results:");
+            alert.setContentText("Sorry, You can't study this lesson because in recent\n" +
+                    "because at this time you haven't completed a few previous lessons" +
+                    "So please complete the previous lesson before study this lesson");
+            alert.showAndWait();
+        }
     }
     public void setSceneAudio(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("play.fxml"));

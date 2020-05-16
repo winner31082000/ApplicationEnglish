@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -80,14 +81,14 @@ public class PlayVideo implements Initializable {
     private String arr[]= Arrays.stream(arrTemp).filter(values->values!=null&&values.length()>0).toArray(size->new String[size]);
     private String[] guide=lesson.getGuide();
     private int line=lesson.getLine();
-    private int sizeForOneLine[]=lesson.getSizeForOneLine();
+    private int sizeForOneLine[]=lesson.getIndexFirstForEachLine();
 
     private int temp=0;
     private static int i = 0;
     String video=new File(path).getAbsolutePath();
     Media media=new Media(new File(video).toURI().toString());
     MediaPlayer mediaPlayer=new MediaPlayer(media);
-    private double result=0;
+    private float result=0;
     int second =0;
     int minutes=0;
     int hour=0;
@@ -137,11 +138,13 @@ public class PlayVideo implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(line<=6){
-            guideAnswer.setText("A:"+guide[0]);
+
+        System.out.println(Arrays.toString(arr));
+        if(line<4){
+            guideAnswer.setText("A: "+guide[0]+"\nB: ");
         }
         else{
-            guideAnswer.setText("A:"+guide[0]+"\n"+"B:"+guide[1]+"\nA:");
+            guideAnswer.setText("A: "+guide[0]+"\n"+"B: "+guide[1]+"\nA: ");
         }
 
 
@@ -260,9 +263,13 @@ public class PlayVideo implements Initializable {
         });
     }
 
+    private int temporary=0;
     // check answer
-    public void checkAnswer() throws IOException {
-
+    public void checkAnswer() throws IOException, SQLException {
+        if(temporary==0 &&i==0){
+            System.out.println(arr[i]);
+            temporary++;
+        }
         try {
             if (check.getText().charAt(check.getText().length() - 1) != arr[i].charAt(check.getText().length() - 1)) {
                 check.deletePreviousChar();
@@ -289,23 +296,52 @@ public class PlayVideo implements Initializable {
             int time = Integer.parseInt(hourClock.getText().substring(0, hourClock.getText().length()-1))*3600 +
                     Integer.parseInt(minuteClock.getText().substring(0, minuteClock.getText().length()-1))*60 + Integer.parseInt(secondClock.getText());
             double videoduration = mediaPlayer.getTotalDuration().toSeconds();
-            result = 10*(11-time/videoduration)/11;
+            result = (float) (10*(11-time/videoduration)/11);
             result = Math.round(result*10);
             result = result/10;
+            if(result<0)
+                result=0;
+
             showResult();
             System.out.println(result);
             i = 0;
         }
     }
 
-    public void showResult() throws IOException {
-        if(result>=9){
+
+    public void updateLessonComplete() throws SQLException {
+        ActionDataBase action = new ActionDataBase();
+        int level=ControllerChallenge.level;
+        int lesson=ControllerChallenge.lesson;
+        Main.students[Main.dem].getNow()[level-1]=lesson;
+
+
+        /*Create function insert into database saved lesson is completed
+
+
+
+
+         */
+
+
+
+        //insert result into database
+        Main.students[Main.dem].editHistory(result);
+       // Main.students[Main.dem].insertHistory(result);
+        //action.in
+    }
+
+    public void showResult() throws IOException, SQLException {
+
+        if(result>=7.5){
             Alert alert=new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("App");
 
             alert.setHeaderText("Results:");
             alert.setContentText("Congratulation, your score is "+result);
             alert.showAndWait();
+
+            updateLessonComplete();
 
             Parent root = FXMLLoader.load(getClass().getResource("challenge.fxml"));
             Stage window = (Stage)time.getScene().getWindow();
@@ -331,6 +367,5 @@ public class PlayVideo implements Initializable {
             window.setScene(scene);
             window.show();
         }
-
     }
 }

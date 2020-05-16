@@ -46,7 +46,9 @@ public class ControllerChangePass implements Initializable {
     public void setChangePass(ActionEvent event) throws SQLException, IOException {
         Student a = Main.students[Main.dem];
         if(check(a)){
-            a.updatePass(newPass.getText());
+            ActionDataBase action = new ActionDataBase();
+            action.updatePass(newPass.getText(),a);
+            //a.updatePass(newPass.getText());
             Alert hi = new Alert(Alert.AlertType.INFORMATION);
             hi.setTitle("Update password");
             hi.setHeaderText("Log out");

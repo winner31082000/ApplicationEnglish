@@ -20,12 +20,37 @@ public class Student {
     private int age;
     private String gender;
     private String edu;
-    private History[] histories = new History[100];
-    private int now = 0;
+    private History[][] histories = new History[3][100];
+    private int[] now = new int[3];
+    private double[] data = new double[100];
+    private int sum = 0;
+    private String level;
+    private int baiso;
+
+    public int getBaiso() {
+        return baiso;
+    }
+
+    public void setBaiso(int baiso) {
+        this.baiso = baiso;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
 
     public Student(){
-        histories = new History[100];
-        now = 0;
+        now[0] = 1;
+        now[1] = 1;
+        now[2] = 1;
     }
 
     public String getUserName() {
@@ -116,32 +141,31 @@ public class Student {
         this.edu = edu;
     }
 
-    public History[] getHistories() {
+    public History[][] getHistories() {
         return histories;
     }
 
-    public void setHistories(History[] histories) {
+    public void setHistories(History[][] histories) {
         this.histories = histories;
     }
 
-    public int getNow() {
+    public int[] getNow() {
         return now;
     }
 
-    public void setNow(int now) {
+    public void setNow(int[] now) {
         this.now = now;
     }
 
-    public void addHistory(int diem){
-        histories[now] = new History(now+1, diem);
-        now++;
+    public void editHistory(float diem){
+        histories[Integer.parseInt(level)-1][baiso-1] = new History(baiso, diem);
+        now[Integer.parseInt(level)-1] = now[Integer.parseInt(level)-1] > baiso? now[Integer.parseInt(level)-1]: baiso;
     }
 
-    public void editHistory(int vong, int diem){
-
-        histories[vong-1].setDiem(diem);
+    public void setID(int ID) {
+        this.ID = ID;
     }
-    public String checkLogin(String user) throws SQLException {
+   /* public String checkLogin(String user) throws SQLException {
         var conn = MConnection.getInstance().getConnection();
         var sql = "SELECT PassWord FROM dbo.Customer where UserName = "+ "'" + user + "'";
         var result = conn.prepareStatement(sql);
@@ -164,6 +188,13 @@ public class Student {
         stm.executeUpdate("insert into Customer(UserName,PassWord,FullName,Email) values ('"+getUserName()+"','"+getPassword()+"','"+getFullName()+"','"
                 +getEmail()+ "')");
         System.out.println("Update sign up successful");
+    }
+    public void insertHistory(float point) throws SQLException {
+        var conn = MConnection.getInstance().getConnection();
+        Statement stm = conn.createStatement();
+        stm.executeUpdate("insert into History(CustomerID,Level,Point) values ('"+getID()+"','"+getLevel()+"','"+point
+                + "')");
+        System.out.println("Update point to History successful");
     }
     public void insertTotalData() throws SQLException {
         var conn = MConnection.getInstance().getConnection();
@@ -200,6 +231,22 @@ public class Student {
             return false;
         }
     }
+    public void setPoint() throws SQLException {
+        var conn = MConnection.getInstance().getConnection();
+        var sql = "SELECT Point FROM dbo.History as H,dbo.Customer as C where C.ID = H.CustomerID and C.ID=" +
+                "'"+getID() +"'";
+        var result = conn.prepareStatement(sql);
+        var resultSet = result.executeQuery();
+        float a = 0;
+        while (resultSet.next()) {
+            a = (resultSet.getFloat("Point")*10)/10;
+            /*histories[now] = new History();
+            histories[now].setDiem(a);
+            histories[now].setVong(now+1);*/
+            //addHistory(a);
+            /*now++;*/
+      //  }
+    //}
 
     public void setData(String user) throws SQLException {
         var conn = MConnection.getInstance().getConnection();

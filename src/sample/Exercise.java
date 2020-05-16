@@ -3,25 +3,23 @@ package sample;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 public class Exercise {
     private String fileAudio;
     private String fileAnswer;
     private int line=0;
     private String[] guide=new String[2];
-    private int sizeForOneLine[]=new int[10];
+    private int indexFirstForEachLine[]=new int[25];
 
-    public int[] getSizeForOneLine() {
-        int []temp=Arrays.stream(sizeForOneLine).filter(num->num!=0).toArray();
+    public int[] getIndexFirstForEachLine() {
+        int []temp=Arrays.stream(indexFirstForEachLine).filter(num->num!=0).toArray();
         return temp;
     }
 
-    public void setSizeForOneLine(int[] sizeForOneLine) {
-        this.sizeForOneLine = sizeForOneLine;
+    public void setIndexFirstForEachLine(int[] indexFirstForEachLine) {
+        this.indexFirstForEachLine = indexFirstForEachLine;
     }
 
     public int getLine() {
@@ -61,27 +59,40 @@ public class Exercise {
     }
 
     public String getData() throws IOException {
-        String temp="";
+        String temp="",temp1="";
         String st;
         BufferedReader reader=new BufferedReader(new FileReader(fileAnswer));
         while ((st=reader.readLine())!=null){
-            if(line>1) {
-                temp += st + " ";
-                int a= Arrays.stream(st.split(" ")).
-                        filter(values->values!=null&&values.length()>0).toArray(size->new String[size]).length;
-                if(line==2)
-                    sizeForOneLine[line-2]=a;
-                else{
-                    sizeForOneLine[line-2]+=a+sizeForOneLine[line-3];
-                }
+            if(line<2){
+                guide[line]=st;
                 line++;
+                continue;
+            }
+            temp+=st+" ";
+            if(line==2){
+                indexFirstForEachLine[0]= Arrays.stream(st.split(" ")).
+                        filter(values->values!=null&&values.length()!=0).toArray().length;
             }
             else{
-                guide[line] = st;
-                line++;
+                indexFirstForEachLine[line-2]=indexFirstForEachLine[line-3]+
+                        Arrays.stream(st.split(" ")).
+                                filter(values->values!=null&&values.length()!=0).toArray().length;
             }
+            line++;
         }
-        //temp = temp.replaceAll("[\\p{Punct}&&[^']]+", " ");
+        if(line<4){
+            temp1=guide[1]+" "+temp;
+            int j=line-2;
+            int a=Arrays.stream(guide[1].split(" ")).filter(vales->vales.length()!=0).toArray().length;
+            while (j>=1){
+                indexFirstForEachLine[j]=indexFirstForEachLine[j-1]+a;
+
+                j--;
+            }
+            indexFirstForEachLine[0]=a;
+            guide[1]="";
+            return temp1;
+        }
         return temp;
     }
 }

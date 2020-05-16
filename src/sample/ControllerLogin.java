@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -18,7 +17,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class ControllerLogin {
     @FXML
@@ -65,21 +63,24 @@ public class ControllerLogin {
         }
     }
     public boolean signUp() throws SQLException {
+        ActionDataBase action = new ActionDataBase();
         if(!signPass.getText().equals(signCPass.getText())){
             baoLoi.setFill(Color.RED);
             baoLoi.setText("Password does not match.");
             return false;
         }
-        else if(Main.students[Main.dem].haveUserName(signID.getText())){
+       //else if(Main.students[Main.dem].haveUserName(signID.getText())){
+        else if(action.haveUserName(signID.getText())){
             baoLoi.setFill(Color.RED);
             baoLoi.setText("Username " + signID.getText() + " is not available.");
             return false;
         }
         else {
             // insert data
-            Main.students[Main.dem].setSignUp(signID.getText(),signPass.getText(),
+            action.setSignUp(Main.students[Main.dem],signID.getText(),signPass.getText(),
                     signName.getText(),signEmail.getText());
-            Main.students[Main.dem].insertData();
+            //Main.students[Main.dem].insertData();
+            action.insertData(Main.students[Main.dem]);
             return true;
         }
     }
@@ -90,7 +91,9 @@ public class ControllerLogin {
         }
     }
     public void checkLogin() throws SQLException {
-       String pass = Main.students[Main.dem].checkLogin(loginID.getText());
+        ActionDataBase action = new ActionDataBase();
+       //String pass = Main.students[Main.dem].checkLogin(loginID.getText());
+        String pass = action.checkLogin(loginID.getText());
        System.out.println(pass);
         if(loginPass.getText().equals(pass)){
             verifyLogin = true;
@@ -100,6 +103,7 @@ public class ControllerLogin {
         }
     }
     public void click(ActionEvent event) throws SQLException {
+        ActionDataBase action = new ActionDataBase();
         checkLogin();
         try{
             if(verifyLogin == false){
@@ -107,7 +111,17 @@ public class ControllerLogin {
             }
             if(verifyLogin == true){
                // Main.student.setUserName(loginID.getText());
+
+                //Main.students[Main.dem].setData(loginID.getText());
+                action.setData(loginID.getText(),Main.students[Main.dem]);
+
                 Main.students[Main.dem].setData(loginID.getText());
+                /*try{
+                    Main.students[Main.dem].setPoint();
+                } catch (SQLException e){
+                    e.printStackTrace();
+                }*/
+
                 System.out.println(Main.students[Main.dem].getFullName());
                 setSceneHome(event);
             }
